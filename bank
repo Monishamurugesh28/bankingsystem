@@ -1,0 +1,61 @@
+package jdbc88;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+
+
+public class Bank1 {
+
+	public static void main(String[] args) {
+		Connection conn=null;
+		try {
+			int i;
+			i=1;
+			Scanner sc = new Scanner(System.in);
+			Class.forName("org.sqlite.JDBC");
+			conn=DriverManager.getConnection("jdbc:sqlite:c:\\sql\\Bank\\Bank.db");
+			conn.setAutoCommit(true);
+			System.out.println("Opened database successfully");
+			String query="insert into Banking_System values(?,?,?,?,?,?,?)";
+					PreparedStatement preparedstmt=conn.prepareStatement(query);
+					System.out.println("Enter number of Customer_Records to insert:");
+		            int n = sc.nextInt();
+					while(i<=n) {
+					System.out.println("Enter Cust_id:");
+					int Cust_id=sc.nextInt();
+					sc.nextLine();  
+					System.out.println("Enter Cust_name:");
+					String Cust_name=sc.nextLine();
+					System.out.println("Enter Address:");
+					String Address=sc.nextLine(); 
+					System.out.println("Enter City:");
+					String City=sc.nextLine(); 
+					System.out.println("Enter Pincode:");
+					int Pincode=sc.nextInt();
+					sc.nextLine();
+					System.out.println("Enter Phone_no :");
+					String Phone_no=sc.nextLine();
+					System.out.println("Enter Initial_deposit:");
+					int Initial_deposit=sc.nextInt();
+					sc.nextLine();
+					preparedstmt.setInt(1, Cust_id);
+	                preparedstmt.setString(2, Cust_name);
+	                preparedstmt.setString(3, Address);
+	                preparedstmt.setString(4, City);
+	                preparedstmt.setInt(5, Pincode);
+	                preparedstmt.setString(6, Phone_no);
+	                preparedstmt.setInt(7, Initial_deposit);
+	                preparedstmt.executeUpdate();
+					i++;
+					}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println("Record inserted Successfully");
+
+
+	}
+
+}
