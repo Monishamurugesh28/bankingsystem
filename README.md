@@ -1,2 +1,3 @@
-#output
-![output][bankop.png]
+#Banking system 
+##output
+![output](bankop.png)
